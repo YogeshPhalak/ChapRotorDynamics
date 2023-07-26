@@ -15,13 +15,21 @@ m2 = 10.0
 I1 = m1 * 2 * b ** 2 / 3
 I3 = m2 * 4 * l ** 2 / 3
 
-t_max = 300.0
+u1_0 = 0.0
+u2_0 = 0.5
+u3_0 = 0.0
+th_0 = 0.0
+phi_0 = 0.0
+x_0 = -10.0
+y_0 = 0.0
+
+t_max = 100.0
 t_sim = np.linspace(0, t_max, int(t_max / dt) + 1)
 
 status_bar = None
 status = 0.0
 
-filename = 'chap_rotor_dynamic_model.pkl'
+filename = 'chap_rotor_normal.pkl'
 
 
 def update_params(params):
@@ -143,14 +151,6 @@ def dynamic_model(t, q):
 
 
 if __name__ == '__main__':
-    u1_0 = 1.0
-    u2_0 = 0.0
-    u3_0 = 1.0
-    th_0 = 0.0
-    phi_0 = -np.pi / 2
-    x_0 = 0.0
-    y_0 = 0.0
-
     q0 = np.array([u1_0, u2_0, u3_0, th_0, phi_0, x_0, y_0])
 
     sol = solve_ivp(fun=dynamic_model, t_span=(0, t_max), y0=q0, method='RK45', max_step=dt, t_eval=t_sim)

@@ -9,7 +9,7 @@ def animate(f_name, capture=False, gif=True):
     h = 900
     w = 1800
     img = np.ones((h, w, 3), np.uint8) * 0
-    fps = 200.0
+    fps = 300.0
     scale = 50
     tscale = 1
     data_points = 100
@@ -112,10 +112,8 @@ def animate(f_name, capture=False, gif=True):
              C + c * e1])
 
         cv2.polylines(img, np.int32(
-            [np.array(
-                [np.array([body[i][0] * scale + w / 2, -body[i][1] * scale + h / 2]) for i in range(len(body))])]),
-                      True,
-                      (255, 255, 255), 1)
+            [np.array([np.array([int(body[i][0] * scale + w / 2) % w, int(-body[i][1] * scale + h / 2) % h]) for i in
+                       range(len(body))])]), True, (255, 255, 255), 2)
 
         # wheels
         wheel1 = np.array(
@@ -128,23 +126,26 @@ def animate(f_name, capture=False, gif=True):
             [A + 0.5 * c * e2,
              A - 0.5 * c * e2])
 
-        cv2.line(img, (int(axle1[0][0] * scale + w / 2), int(-axle1[0][1] * scale + h / 2)),
-                 (int(axle1[1][0] * scale + w / 2), int(-axle1[1][1] * scale + h / 2)), (255, 0, 255), 2)
-        cv2.line(img, (int(wheel1[0][0] * scale + w / 2), int(-wheel1[0][1] * scale + h / 2)),
-                 (int(wheel1[1][0] * scale + w / 2), int(-wheel1[1][1] * scale + h / 2)), (50, 200, 0), scale // 10)
-        cv2.line(img, (int(wheel2[0][0] * scale + w / 2), int(-wheel2[0][1] * scale + h / 2)),
-                 (int(wheel2[1][0] * scale + w / 2), int(-wheel2[1][1] * scale + h / 2)), (50, 200, 0), scale // 10)
+        cv2.line(img, (int(axle1[0][0] * scale + w / 2) % w, int(-axle1[0][1] * scale + h / 2) % h),
+                 (int(axle1[1][0] * scale + w / 2) % w, int(-axle1[1][1] * scale + h / 2) % h), (255, 0, 255), 2)
+        cv2.line(img, (int(wheel1[0][0] * scale + w / 2) % w, int(-wheel1[0][1] * scale + h / 2) % h),
+                 (int(wheel1[1][0] * scale + w / 2) % w, int(-wheel1[1][1] * scale + h / 2) % h), (50, 200, 0),
+                 scale // 10)
+        cv2.line(img, (int(wheel2[0][0] * scale + w / 2) % w, int(-wheel2[0][1] * scale + h / 2) % h),
+                 (int(wheel2[1][0] * scale + w / 2) % w, int(-wheel2[1][1] * scale + h / 2) % h), (50, 200, 0),
+                 scale // 10)
 
         # rotor
         rotor = np.array([B, B + (l + c) * np.array([np.cos(phi + th), np.sin(phi + th), 0])])
-        cv2.line(img, (int(rotor[0][0] * scale + w / 2), int(-rotor[0][1] * scale + h / 2)),
-                 (int(rotor[1][0] * scale + w / 2), int(-rotor[1][1] * scale + h / 2)), (100, 100, 100), scale // 15)
+        cv2.line(img, (int(rotor[0][0] * scale + w / 2) % w, int(-rotor[0][1] * scale + h / 2) % h),
+                 (int(rotor[1][0] * scale + w / 2) % w, int(-rotor[1][1] * scale + h / 2) % h), (100, 100, 100),
+                 scale // 15)
 
         # draw points
-        cv2.circle(img, (int(A[0] * scale + w / 2), int(-A[1] * scale + h / 2)), 5, (0, 0, 255), -1)
-        cv2.circle(img, (int(B[0] * scale + w / 2), int(-B[1] * scale + h / 2)), 5, (0, 255, 0), -1)
-        cv2.circle(img, (int(C[0] * scale + w / 2), int(-C[1] * scale + h / 2)), 5, (255, 0, 0), -1)
-        cv2.circle(img, (int(D[0] * scale + w / 2), int(-D[1] * scale + h / 2)), 5, (0, 255, 255), -1)
+        cv2.circle(img, (int(A[0] * scale + w / 2) % w, int(-A[1] * scale + h / 2) % h), 5, (0, 0, 255), -1)
+        cv2.circle(img, (int(B[0] * scale + w / 2) % w, int(-B[1] * scale + h / 2) % h), 5, (0, 255, 0), -1)
+        cv2.circle(img, (int(C[0] * scale + w / 2) % w, int(-C[1] * scale + h / 2) % h), 5, (255, 0, 0), -1)
+        cv2.circle(img, (int(D[0] * scale + w / 2) % w, int(-D[1] * scale + h / 2) % h), 5, (0, 255, 255), -1)
 
     sol_ = pickle.load(open(f_name, 'rb'))
     update_params(sol_.sol)
@@ -182,4 +183,4 @@ def animate(f_name, capture=False, gif=True):
 
 
 if __name__ == '__main__':
-    animate(filename, False, False)
+    animate(filename, True, False)

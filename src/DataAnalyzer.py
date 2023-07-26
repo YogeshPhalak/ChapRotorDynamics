@@ -72,4 +72,4 @@ if __name__ == '__main__':
     update_params(sol.sol)
     q = sol.y
     t = sol.t
-    plot_data(t, q, False)
+    plot_data(t, q, True)
