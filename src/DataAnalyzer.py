@@ -8,6 +8,7 @@ def plot_data(t, q, save_fig=False):
     phi_plt = np.zeros(len(t))
     x_plt = np.zeros(len(t))
     y_plt = np.zeros(len(t))
+    total_energy = np.zeros(len(t))
 
     for i in range(len(t)):
         u1_c, u2_c, u3_c, th_c, phi_c, x_c, y_c = q[:, i]
@@ -15,6 +16,13 @@ def plot_data(t, q, save_fig=False):
         phi_plt[i] = phi_c
         x_plt[i] = x_c
         y_plt[i] = y_c
+
+        total_energy[i] = (m1 * u1_c ** 2) / 2 + (m1 * u2_c ** 2) / 2 + (
+                    m2 * (l * u2_c * np.sin(phi_c) - b * u1_c + b * l * u3_c * np.sin(phi_c)) ** 2) / (2 * b ** 2) + (
+                                      I1 * u2_c ** 2) / (2 * b ** 2) + (m2 * (
+                    b * u2_c - c * u2_c + l * u2_c * np.cos(phi_c) + b * l * u3_c * np.cos(phi_c)) ** 2) / (
+                                      2 * b ** 2) + (I3 * (u2_c + b * u3_c) ** 2) / (2 * b ** 2) - (
+                                      l ** 2 * m2 * (u2_c + b * u3_c) ** 2) / (2 * b ** 2)
 
     plt.plot(t, x_plt)
     plt.xlabel('Time (s)')
@@ -49,6 +57,13 @@ def plot_data(t, q, save_fig=False):
     plt.ylabel('y (m)')
     plt.title('y vs x')
     if save_fig: plt.savefig(data_name + '_y_vs_x.png', dpi=1000)
+    plt.show()
+
+    plt.plot(t, total_energy)
+    plt.xlabel('Time (s)')
+    plt.ylabel('Total Energy (J)')
+    plt.title('Total Energy vs Time')
+    if save_fig: plt.savefig(data_name + '_energy.png', dpi=1000)
     plt.show()
 
 
