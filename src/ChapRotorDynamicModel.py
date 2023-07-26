@@ -10,12 +10,12 @@ q0 = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 b = 1
 c = 0.5
 l = 0.5
-m1 = 0.01
+m1 = 1.0
 m2 = 10.0
 I1 = m1 * 2 * b ** 2 / 3
 I3 = m2 * 4 * l ** 2 / 3
 
-t_max = 30.0
+t_max = 300.0
 t_sim = np.linspace(0, t_max, int(t_max / dt) + 1)
 
 status_bar = None
