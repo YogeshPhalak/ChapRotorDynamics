@@ -10,7 +10,7 @@ def animate(f_name, capture=False, gif=True):
     w = 1800
     img = np.ones((h, w, 3), np.uint8) * 0
     fps = 300.0
-    scale = 50
+    scale = 100
     tscale = 1
     data_points = 100
     t_step = round(fps * dt)

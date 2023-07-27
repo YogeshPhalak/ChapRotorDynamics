@@ -7,29 +7,29 @@ from numba import njit
 dt = 0.01
 q0 = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 
-b = 1
-c = 0.5
-l = 0.5
+b = 1.0
+c = 0.0
+l = 5.0
 m1 = 1.0
 m2 = 10.0
-I1 = m1 * 2 * b ** 2 / 3
-I3 = m2 * 4 * l ** 2 / 3
+I1 = 100.0
+I3 = 250.0
 
-u1_0 = 0.0
-u2_0 = 0.5
+u1_0 = 0.5
+u2_0 = 0.01
 u3_0 = 0.0
 th_0 = 0.0
 phi_0 = 0.0
-x_0 = -10.0
+x_0 = 0.0
 y_0 = 0.0
 
-t_max = 100.0
+t_max = 10000.0
 t_sim = np.linspace(0, t_max, int(t_max / dt) + 1)
 
 status_bar = None
 status = 0.0
 
-filename = 'chap_rotor_normal.pkl'
+filename = '../data/chap_rotor_auto_chaos2.pkl'
 
 
 def update_params(params):
