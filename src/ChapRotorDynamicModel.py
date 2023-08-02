@@ -8,7 +8,7 @@ dt = 0.01
 q0 = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 
 b = 1.0
-c = 0.0
+c = 0.1
 l = 5.0
 m1 = 1.0
 m2 = 10.0
@@ -23,7 +23,7 @@ phi_0 = 0.0
 x_0 = 0.0
 y_0 = 0.0
 
-t_max = 10000.0
+t_max = 1000.0
 t_sim = np.linspace(0, t_max, int(t_max / dt) + 1)
 
 status_bar = None
